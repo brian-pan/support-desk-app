@@ -4,7 +4,7 @@ const User = require("../models/userModel");
 const Ticket = require("../models/ticketModel");
 const { status } = require("express/lib/response");
 
-// @desc    Get user tickets (all tickets)
+// @desc    Get user tickets (one user all tickets)
 // @route   GET /api/tickets
 // @access  Private
 const getTickets = asyncHandler(async (req, res) => {
@@ -18,6 +18,33 @@ const getTickets = asyncHandler(async (req, res) => {
 
   const tickets = await Ticket.find({ user: req.user.id });
   res.status(200).json(tickets);
+});
+
+// @desc    Get user ticket (show single ticket detail)
+// @route   GET /api/tickets/:id
+// @access  Private
+const getTicket = asyncHandler(async (req, res) => {
+  // Get user using the id in the JWT
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Ticket not found");
+  }
+
+  //only owner can view its own ticket
+  if (ticket.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("Not Authorized to view that ticket");
+  }
+  res.status(200).json(ticket);
 });
 
 // @desc    create new ticket
@@ -51,5 +78,6 @@ const createTicket = asyncHandler(async (req, res) => {
 
 module.exports = {
   getTickets,
+  getTicket,
   createTicket,
 };
