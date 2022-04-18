@@ -12,9 +12,9 @@ export const useAuthStatus = () => {
 
   useEffect(() => {
     if (user) {
-      setIsLoggedIn = true;
+      setIsLoggedIn(true);
     } else {
-      setIsLoggedIn = false;
+      setIsLoggedIn(false);
     }
     setIsCheckingStatus(false);
   }, [user]);
