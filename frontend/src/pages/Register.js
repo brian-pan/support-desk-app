@@ -37,7 +37,7 @@ function Register() {
       });
     }
 
-    dispatch(reset);
+    dispatch(reset());
   }, [isError, isSuccess, user, message, navigate, dispatch]);
 
   const onChange = (event) => {
