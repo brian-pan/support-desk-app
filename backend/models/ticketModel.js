@@ -11,7 +11,7 @@ const ticketSchema = Schema(
     product: {
       type: String,
       required: [true, "Please select a product"],
-      enum: ["iPhone", "Macbook", "Macbook Pro", "iPad", "iMac"],
+      enum: ["iPhone", "MacBook", "MacBook Pro", "iPad", "iMac"],
     },
     description: {
       type: String,

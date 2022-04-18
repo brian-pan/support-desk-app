@@ -7,6 +7,6 @@ export const store = configureStore({
   reducer: {
     //why called ticketReducer??
     auth: authReducer,
-    ticket: ticketReducer,
+    tickets: ticketReducer,
   },
 });
