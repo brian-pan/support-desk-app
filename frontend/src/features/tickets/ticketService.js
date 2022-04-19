@@ -38,7 +38,7 @@ const getTicket = async (ticketId, token) => {
     },
   };
 
-  const response = await axios.get(API_URL + ticketId, config);
+  const response = await axios.get(API_URL + "/" + ticketId, config);
 
   return response.data;
 };
